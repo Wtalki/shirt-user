@@ -114,14 +114,14 @@ export default createStore({
     pageCount(state, getters) {
       return Math.ceil(getters.filterItems.length / state.itemsPerPage);
     },
-    // homeItemsPage(state) {
-    //   const start = (state.currentPage - 1) * state.homeItems;
-    //   const end = start + state.homeItems;
-    //   return state.items.slice(start, end);
-    // },
-    // homeCount(state) {
-    //   return Math.ceil(state.items.length / state.homeItems);
-    // },
+    homeItemsPage(state) {
+      const start = (state.currentPage - 1) * state.homeItems;
+      const end = start + state.homeItems;
+      return state.items.slice(start, end);
+    },
+    homeCount(state) {
+      return Math.ceil(state.items.length / state.homeItems);
+    },
     cartItemsPage(state) {
       const start = (state.currentPage - 1) * state.cartItems;
       const end = start + state.cartItems;

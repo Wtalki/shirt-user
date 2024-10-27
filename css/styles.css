@@ -3,3 +3,11 @@
   width:1px;
    /* Chrome, Safari, and Opera */
 }
+:root{
+  --Color1: #fcfcfc; 
+  --Color2: #2f3333;  
+  --Color3: #e1e3e3;   
+  --Color4: #b6bcbc;   
+  --Color5: #487073;   
+  --Color6: #284245;   
+}

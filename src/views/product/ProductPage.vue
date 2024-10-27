@@ -254,7 +254,10 @@
 import { defineComponent } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import { mapGetters, mapMutations, mapState,mapActions } from "vuex";
-import axios from "axios";
+import api from "../../api.js";
+import {storagePath } from "../../api.js";
+
+
 
 export default defineComponent({
   name: "ProductPage",
@@ -381,24 +384,30 @@ export default defineComponent({
       this.setItemsPerPage(parseInt(event.target.value));
       this.setCurrentPage(1);
     },
-    fetchItems() {
-      axios
-        .get("http://127.0.0.1:8000/api/product/list")
-        .then((response) => {
-          response.data.data.forEach(product =>{
-            product.reviews_avg_rating = parseFloat(product.reviews_avg_rating)
-          })
-          response.data.data.forEach((item) => {
-            item.images.forEach((ite) => {
-              ite.path = "http://127.0.0.1:8000/storage/" + ite.path;
-            });
-          });
-          this.$store.commit("setItems", response.data.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching items:", error);
-        });
-    },
+    async fetchItems() {
+  try {
+    const response = await api.get("/product/list");
+    
+    // Process the data
+    const items = response.data.data.map(product => {
+      product.reviews_avg_rating = parseFloat(product.reviews_avg_rating);
+      
+      // Update image paths
+      product.images = product.images.map(ite => ({
+        ...ite,
+        path: `${storagePath}${ite.path}`
+      }));
+      
+      return product;
+    });
+    
+    // Commit the processed items to the store
+    this.$store.commit("setItems", items);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+  }
+}
+
   },
   created() {
     this.fetchItems();

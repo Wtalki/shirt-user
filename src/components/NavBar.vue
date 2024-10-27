@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="bg-grey-darken-4 pa-2" height="70" flat>
+  <v-app-bar class="pa-2 bg-Color3" height="70" flat >
     <v-app-bar-nav-icon
       @click="drawer = !drawer"
       class="d-lg-none d-md-none d-sm-block"
@@ -7,11 +7,13 @@
     <v-app-bar-title>Logo</v-app-bar-title>
     <v-spacer></v-spacer>
     <v-btn
+      varient="plain"
       v-for="link in links"
       :key="link.text"
       :to="link.href"
       @click="scrollToPage"
-      class="d-none d-md-flex"
+      color="Color2"
+      class="d-none d-md-flex me-2 "
       >{{ link.text }}</v-btn
     >
     <v-spacer></v-spacer>
@@ -34,7 +36,7 @@
     </v-menu>
     <v-btn
       icon="mdi-heart-outline"
-      class="bg-grey-lighten-2 me-3"
+      class="bg-Color5 me-3"
       variant="outlined"
       :to="{ name: 'favourite' }"
     ></v-btn>
@@ -43,7 +45,7 @@
         icon="mdi-shopping-outline"
         :to="{ name: 'cartPage' }"
         variant="outlined"
-        class="bg-grey-lighten-2 me-3"
+        class="bg-Color5 me-3"
       >
       </v-btn>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-if="getCartCount == 0"></span>
@@ -55,7 +57,7 @@
         icon="mdi-bell-outline"
         variant="outlined"
         :to="{ name: 'notiPage' }"
-        class="bg-grey-lighten-2"
+        class="bg-Color5"
       ></v-btn>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-if="getNoti == 0"></span>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-else>{{getNoti}}</span>
@@ -83,12 +85,12 @@
               Edit Account
             </v-btn>
             <v-divider class="my-3"></v-divider>
-            <v-btn variant="text" rounded @click = "logout"> Logout </v-btn>
+            <v-btn variant="text" rounded @click ="logout"> Logout </v-btn>
           </div>
         </v-card-text>
       </v-card>
     </v-menu>
-    <v-btn class="bg-orange ms-2" :to="{ name: 'loginPage' }" v-if="!tokenStatus">Login</v-btn>
+    <v-btn class="bg-Color5 ms-2"  :to="{ name: 'loginPage' }" v-if="!tokenStatus">Login</v-btn>
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" temporary class="bg-grey-darken-4">
     <v-list>
