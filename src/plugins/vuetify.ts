@@ -11,7 +11,7 @@ const vuetify = createVuetify({
         colors: {
           Color1: '#fcfcfc', 
           Color2: '#2f3333',  
-          Color3: '#e0f7fa',   
+          Color3: '#e1e3e3',   
           Color4: '#b6bcbc',   
           Color5: '#487073',   
           Color6: '#284245',   

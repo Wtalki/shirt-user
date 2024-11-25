@@ -8,7 +8,6 @@
           class="[border bg-grey-darken-4 position-fixed d-md-block]"
           style="overflow-y: hidden"
         >
-          >
           <v-list-item
             prepend-avatar=""
             height="60"

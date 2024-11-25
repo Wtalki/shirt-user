@@ -1,18 +1,18 @@
 <template>
-  <v-card class="mx-auto pa-4 bg-Color3" flat>
+  <v-card class="mx-auto pa-4 " flat>
     <v-list
-      class="d-flex justify-space-evenly justify-md-center bg-Color3 flex-wrap"
+      class="d-flex justify-space-between flex-wrap "
     >
       <v-list-item
         v-for="n in service"
         :key="n"
-        class="mt-3 text-Color2"
+        class="mt-3 text-Color2 w-25"
         :title="n.title"
         :subtitle="n.text"
       >
         <template v-slot:prepend>
-          <span class="bg-Color4 pa-5 rounded-circle me-2">
-            <v-icon size="48" class="text-Color5">{{ n.icon }}</v-icon>
+          <span class="bg-Color4 pa-md-5 pa-3 rounded-circle me-2">
+            <v-icon size="35" class="text-Color5">{{ n.icon }}</v-icon>
           </span>
         </template>
       </v-list-item>

@@ -1,46 +1,23 @@
 <template>
-  <v-app-bar class="pa-2 bg-Color3" height="70" flat >
-    <v-app-bar-nav-icon
-      @click="drawer = !drawer"
-      class="d-lg-none d-md-none d-sm-block"
-    ></v-app-bar-nav-icon>
-    <v-app-bar-title>Logo</v-app-bar-title>
+  <v-app-bar class="pa-sm-2 px-sm-16  navbar" height="70" flat>
+    <v-app-bar-title :to="{name:'/'}"><img
+          alt="Carbon Health Logo"
+          height="30"
+          src="https://storage.googleapis.com/a1aa/image/heT96CeWqhpVoEAvbcu30rZwmhJnGDWVoV24l2W9xhRRGQuTA.jpg"
+          width="30"
+        /></v-app-bar-title>
+    <div class="menu">
+      <NavListComp />
+    </div>
     <v-spacer></v-spacer>
-    <v-btn
-      varient="plain"
-      v-for="link in links"
-      :key="link.text"
-      :to="link.href"
-      @click="scrollToPage"
-      color="Color2"
-      class="d-none d-md-flex me-2 "
-      >{{ link.text }}</v-btn
-    >
-    <v-spacer></v-spacer>
-    <v-menu offset-y v-if="!drawer" class="d-none">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn text v-bind="attrs" v-on="on" class="d-none">
-          <v-icon>mdi-menu</v-icon></v-btn
-        >
-      </template>
-      <v-list class="bg-grey-darken-4">
-        <v-list-item
-          v-for="link in links"
-          :key="link.text"
-          :to="link.href"
-          @click="drawer = false"
-        >
-          <v-list-item-title>{{ link.text }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-    <v-btn
+    <ButtonComp action="favouriate"/>
+    <!-- <v-btn
       icon="mdi-heart-outline"
       class="bg-Color5 me-3"
       variant="outlined"
       :to="{ name: 'favourite' }"
-    ></v-btn>
-    <div class="position-relative">
+    ></v-btn> -->
+    <!-- <div class="position-relative">
       <v-btn
         icon="mdi-shopping-outline"
         :to="{ name: 'cartPage' }"
@@ -50,9 +27,10 @@
       </v-btn>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-if="getCartCount == 0"></span>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-else>{{getCartCount}}</span>
+    </div> -->
+    <ButtonComp action="shopping" :count="getCartCount"/>
 
-    </div>
-    <div class="position-relative">
+    <!-- <div class="position-relative">
       <v-btn
         icon="mdi-bell-outline"
         variant="outlined"
@@ -61,10 +39,11 @@
       ></v-btn>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-if="getNoti == 0"></span>
       <span class="pos bg-orange rounded-circle w-50 text-center" v-else>{{getNoti}}</span>
+    </div> --> 
 
-    </div>
+    <ButtonComp action = 'notification'/>
 
-    <v-menu min-width="200px" rounded v-if="tokenStatus">
+    <!-- <v-menu min-width="200px" rounded v-if="tokenStatus">
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props" class="ms-2">
           <v-avatar color="brown" size="large">
@@ -89,16 +68,57 @@
           </div>
         </v-card-text>
       </v-card>
-    </v-menu>
-    <v-btn class="bg-Color5 ms-2"  :to="{ name: 'loginPage' }" v-if="!tokenStatus">Login</v-btn>
-  </v-app-bar>
+    </v-menu> -->
+    <ButtonComp action="account"/>
+
+    <!-- <v-btn class="bg-Color5 ms-2"  :to="{ name: 'loginPage' }" v-if="!tokenStatus">Login</v-btn> -->
+    <ButtonComp action="Login" />
+      <!-- <div class="logo">
+        <img
+          alt="Carbon Health Logo"
+          height="30"
+          src="https://storage.googleapis.com/a1aa/image/heT96CeWqhpVoEAvbcu30rZwmhJnGDWVoV24l2W9xhRRGQuTA.jpg"
+          width="30"
+        />
+        <span> Carbon Health </span>
+     </div> -->
+      <!-- <div class="menu">
+        <a href="#"> Locations </a>
+        <a href="#"> Primary Care </a>
+        <a href="#"> Urgent Care </a>
+        <a class="new" href="#">
+          Wellness 360
+          <span class="new"> NEW </span>
+        </a>
+        <a href="#"> Pricing </a>
+        <a href="#"> Log In </a>
+        <div class="dropdown">
+          <a class="menu-icon" href="#">
+            <i class="fas fa-bars"> </i>
+          </a>
+          <div class="dropdown-content">
+            <a href="#"> Locations </a>
+            <a href="#"> Primary Care </a>
+            <a href="#"> Urgent Care </a>
+            <a class="new" href="#">
+              Wellness 360
+              <span class="new"> NEW </span>
+            </a>
+            <a href="#"> Pricing </a>
+            <a href="#"> Log In </a>
+          </div>
+        </div>
+        <a class="book-appointment" href="#"> Book appointment </a>
+      </div> --> 
+   </v-app-bar>
+
   <v-navigation-drawer v-model="drawer" temporary class="bg-grey-darken-4">
     <v-list>
       <v-list-item
         v-for="link in links"
         :key="link.text"
         :to="link.href"
-        @click="drawer = false "
+        @click="drawer = false"
       >
         <v-list-item-title>{{ link.text }}</v-list-item-title>
       </v-list-item>
@@ -107,22 +127,20 @@
 </template>
 
 <script>
+import ButtonComp from "./assential/ButtonComp.vue"
+import NavListComp from "./assential/NavListComp.vue"
 import { mapGetters } from "vuex";
 import "../../css/styles.css";
 
 export default {
   name: "NavBar",
+  components:{NavListComp,ButtonComp},
   data() {
     return {
       drawer: false,
-      links: [
-        { text: "Home", href: "/" },
-        { text: "Product", href: "/productPage" },
-        { text: "Services", href: "/servicePage" },
-        { text: "Contact", href: "/contactPage" },
-      ],
-      tokenStatus:false,
-      action:false,
+      
+      tokenStatus: false,
+      action: false,
     };
   },
   computed: {
@@ -139,44 +157,41 @@ export default {
       "getNoti",
     ]),
   },
-  methods:{
-    checkToken(){
-      const user = JSON.parse(localStorage.getItem('userData'))
-      const token = localStorage.getItem('token')
-      this.$store.dispatch('setToken',token)
-      this.$store.dispatch('setUserData',user)
+  methods: {
+    checkToken() {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const token = localStorage.getItem("token");
+      this.$store.dispatch("setToken", token);
+      this.$store.dispatch("setUserData", user);
       console.log(this.getToken);
       console.log(this.getUserData);
 
-      if(
+      if (
         this.getToken != null &&
         this.getToken != undefined &&
-        this.getToken != "")
-      {
-        this.tokenStatus=true;
-      }else{
-        this.tokenStatus=false;
+        this.getToken != ""
+      ) {
+        this.tokenStatus = true;
+      } else {
+        this.tokenStatus = false;
       }
     },
-    logout(){
-      this.$router.push('/loginPage')
-      localStorage.removeItem('token')
-      localStorage.removeItem('userData')
+    logout() {
+      this.$router.push("/loginPage");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userData");
     },
     scrollToPage() {
-      // Wait for the DOM to update
       this.$nextTick(() => {
-        // Scroll to the top of the About page
         window.scrollTo({
           top: 0,
         });
       });
     },
   },
-  created(){
+  created() {
     this.checkToken();
-    
-  }
+  },
 };
 </script>
 
@@ -191,4 +206,39 @@ export default {
   z-index: 3;
   right: -5px;
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e5e7eb;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar .logo {
+  display: flex;
+  align-items: center;
+}
+.navbar .logo img {
+  height: 30px;
+  margin-right: 10px;
+}
+.navbar .menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .menu .menu-icon {
+  display: none;
+}
+@media (max-width: 900px) {
+  .navbar .menu {
+    display: none;
+  }
+  .navbar .menu .menu-icon {
+    display: block;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
 </style>
