@@ -7,5 +7,6 @@ import HomeCategory from './home/HomeCategory.vue';
 import ExhanceComp from './home/ExhanceComp.vue';
 import ProductComp from './assential/ProductComp.vue';
 import ShirtComp from './assential/ShirtComp.vue';
+import BlogComp from './home/BlogComp.vue';
 
-export { HeroSection , Button, Feature, Team , Recommand,HomeCategory,ExhanceComp,ProductComp,ShirtComp}
+export { HeroSection , Button, Feature, Team , Recommand,HomeCategory,ExhanceComp,ProductComp,ShirtComp,BlogComp}

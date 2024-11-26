@@ -27,6 +27,9 @@
          <v-col cols="12" class="px-sm-10 px-md-16 px-2">
           <ShirtComp type="pant" title="Popular Pants Product"/>
         </v-col>
+         <v-col cols="12">
+          <BlogComp title="Blog"/>
+        </v-col>
         <v-col cols="12" class="bg-Color3">
           <v-container >
             <Team/>
@@ -129,12 +132,12 @@ import { defineComponent } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import FooterB from "@/components/FooterB.vue";
 import api from "../api.js";
-import { HeroSection,Feature,Team , Recommand,HomeCategory,ExhanceComp,ProductComp,ShirtComp} from "@/components";
+import { HeroSection,Feature,Team , Recommand,HomeCategory,ExhanceComp,ProductComp,ShirtComp ,BlogComp} from "@/components";
 import {storagePath } from "../api.js";
 
 export default defineComponent({
   name: "HomeView",
-  components: { NavBar, FooterB, HeroSection, Feature,Team, Recommand,HomeCategory,ExhanceComp,ProductComp,ShirtComp },
+  components: { NavBar, FooterB, HeroSection, Feature,Team, Recommand,HomeCategory,ExhanceComp,ProductComp,ShirtComp ,BlogComp},
   data() {
     return {
       active:0,
@@ -152,8 +155,8 @@ export default defineComponent({
   async created() {
   try {
     const response = await api.get(`/product/discount`);
-    console.log(response)
-    const discounts = response.data.discounts.data;
+    console.log(response.data.discounts)
+    const discounts = response.data.discounts;
 
     discounts.forEach((item) => {
       item.images.forEach((img) => {
